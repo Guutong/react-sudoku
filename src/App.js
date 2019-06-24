@@ -2,18 +2,18 @@ import React from 'react';
 import './App.css';
 
 class Cell extends React.Component { 
-  state = {
-    number: 1
-  }
+
   render() {
     return (
       <div
-        onClick={(e) => this.setState({
-          number: (this.state.number + 1) % 5
-        })}
+        onClick={(e) =>
+          this.setState({
+            number: (this.props.number + 1) % 5
+          })
+        }
         className={`cell ${this.props.isInitial ? 'initial': ''}`}
       >
-        {this.state.number !== 0 && this.state.number}
+        {this.props.number !== 0 && this.props.number}
       </div>
     );
   }
@@ -22,22 +22,31 @@ class Board extends React.Component {
   state = {
     board: [
       [1, 2, 3, 4],
-      [1, 2, 3, 4],
-      [1, 2, 3, 4],
-      [1, 2, 3, 4]
+      [3, 4, 0, 0],
+      [2, 0, 4, 0],
+      [4, 0, 0, 2],
     ],
     initial: [
-      [true, true, true, false],
-      [true, true, true, false],
-      [true, false, true, true],
-      [true, true, true, false]
+      [true, true, true, true],
+      [true, true, false, false],
+      [true, false, true, false],
+      [true, false, false, true],
     ],
   }
   render() { 
     return (
       <div className="board">
         {
-          this.state.board.map((row, i) => row.map((number, j) => <Cell key={`cell-${i}-${j}`} number={number} initial={this.state.initial[i][j]} />))
+          this.state.board.map(
+            (row, i) => row.map(
+              (number, j) =>
+                <Cell
+                  key={`cell-${i}-${j}`}
+                  number={number}
+                  isInitial={this.state.initial[i][j]}
+                />
+            )
+          )
         }
       </div>
     );
