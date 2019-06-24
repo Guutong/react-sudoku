@@ -3,7 +3,7 @@ import './App.css';
 
 class Cell extends React.Component { 
   render() {
-    return (<div className="cell">1</div>);
+    return (<div className="cell">{this.props.number}</div>);
   }
 }
 class App extends React.Component {
@@ -11,22 +11,22 @@ class App extends React.Component {
     return (
       <div className="App">
         <div className="board">
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
-          <Cell/>
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
+          <Cell number={4} />
         </div>
       </div>
     );
