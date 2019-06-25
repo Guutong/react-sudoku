@@ -28,7 +28,7 @@ class Board extends Component {
   interval
   state = {
     loading: true,
-    statusText: "test",
+    statusText: "",
     timer: 0
   }
   submit = () => {
