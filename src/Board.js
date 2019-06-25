@@ -27,13 +27,7 @@ const validate = board => {
 class Board extends Component {
   interval
   state = {
-    board: [[1, 2, 3, 4], [3, 4, 0, 0], [2, 0, 4, 0], [4, 0, 0, 2]],
-    initial: [
-      [true, true, true, true],
-      [true, true, false, false],
-      [true, false, true, false],
-      [true, false, false, true]
-    ],
+    loading: true,
     statusText: "test",
     timer: 0
   }
@@ -46,11 +40,26 @@ class Board extends Component {
       statusText: isValid ? "Board is Complete!" : "Board is invalid!"
     })
   }
+  restartBoard = () => { 
+    this.setState({loading: true})
+    fetch('https://us-central1-skooldio-courses.cloudfunctions.net/react_01/random')
+    .then((res) => res.json())
+    .then((response) => {
+      this.setState({
+        loading: false,
+        board: response.board,
+        timer: 0,
+        initial: response.board.map(row => row.map(i => i !== 0))
+      })
+    })
+    .catch(console.log);
+  }
   componentDidMount() {
     this.interval = setInterval(
       () => this.setState({ timer: this.state.timer + 1 }),
       1000
     )
+    this.restartBoard();
   }
   componentWillUnmount() {
     clearInterval(this.interval)
@@ -60,7 +69,8 @@ class Board extends Component {
       <div>
         <p>Elapsed Time: {this.state.timer} second</p>
         <div className="board">
-          {this.state.board.map((row, i) =>
+          {this.state.loading && (<p>loading...</p>)}
+          {!this.state.loading && this.state.board.map((row, i) =>
             row.map((number, j) => (
               <Cell
                 key={`cell-${i}-${j}`}
@@ -75,6 +85,7 @@ class Board extends Component {
             ))
           )}
         </div>
+        <button className="restart-button" onClick={this.restartBoard}>Restart</button>
         <button onClick={this.submit}>Submit</button>
         <p>{this.state.statusText}</p>
       </div>
