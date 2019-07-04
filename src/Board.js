@@ -47,6 +47,7 @@ class Board extends Component {
     .then((response) => {
       this.setState({
         loading: false,
+        statusText: '',
         board: response.board,
         timer: 0,
         initial: response.board.map(row => row.map(i => i !== 0))
